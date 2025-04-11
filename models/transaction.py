@@ -17,9 +17,7 @@ class Transaction(db.Model):
     __tablename__ = "transactions"
 
     id = db.Column(db.Integer, primary_key=True)
-    from_account_id = db.Column(
-        db.Integer, db.ForeignKey("accounts.id"), nullable=False
-    )
+    from_account_id = db.Column(db.Integer, db.ForeignKey("accounts.id"), nullable=True)
     to_account_id = db.Column(db.Integer, db.ForeignKey("accounts.id"), nullable=True)
     amount = db.Column(db.Numeric(10, 2), nullable=False)
     type = db.Column(db.Enum(TransactionType))

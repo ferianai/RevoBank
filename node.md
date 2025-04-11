@@ -1,8 +1,15 @@
-# RevoBANK [API Documentation](https://gx4h8ezxcv.apidog.io/)
+### ERD RevoBANK
 
-## Database Schema Overview
+## USER
 
-### Entity Relationship Diagram
+- `id` - `INT` - `PK` - `Unique identifier`
+- `username` - `VARCHAR` - `Username for login`
+- `email` - `VARCHAR` - `User's email address`
+- `password_hash` - `VARCHAR` - `Securely hashed user password`
+- `created_at` - `DATETIME` - `Timestamp of user creation`
+- `updated_at` - `DATETIME` - `Timestamp of user information update`
+
+## Schema RevoBANK
 
 ```mermaid
 erDiagram
@@ -54,93 +61,7 @@ erDiagram
     TRANSACTIONS ||--o{ TRANSACTIONS_HISTORY : logs
 ```
 
-### Database Connection Configuration
-
-The application supports multiple database backends:
-
-1. **SQLite (for testing):**
-
-   ```python
-   # config/testing.py
-   SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
-   ```
-
-2. **PostgreSQL (for development/production):**
-   ```python
-   # config/dev.py or config/prod.py
-   SQLALCHEMY_DATABASE_URI = 'postgresql://user:password@localhost:5432/revobank'
-   ```
-
-Environment variables should be set in `.env` file:
-
-```
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=revobank
-DB_USER=user
-DB_PASSWORD=password
-```
-
-### Example Database Operations
-
-**1. Creating a User:**
-
-```python
-from models.user import User
-from instance.database import db
-
-new_user = User(
-    username='john_doe',
-    email='john@example.com',
-    password_hash='hashed_password'
-)
-db.session.add(new_user)
-db.session.commit()
-```
-
-**2. Managing Accounts:**
-
-```python
-from models.account import Account
-
-# Create account
-account = Account(
-    user_id=1,
-    account_type='savings',
-    account_number='1234567890',
-    balance=1000.00
-)
-db.session.add(account)
-db.session.commit()
-
-# Update balance
-account = Account.query.get(1)
-account.balance += 500.00
-db.session.commit()
-```
-
-**3. Initiating Transactions:**
-
-```python
-from models.transaction import Transaction
-
-# Transfer between accounts
-transaction = Transaction(
-    from_account_id=1,
-    to_account_id=2,
-    amount=100.00,
-    type='transfer',
-    description='Monthly savings'
-)
-db.session.add(transaction)
-db.session.commit()
-```
-
-### API Documentation
-
-Full API documentation is available at: [RevoBANK API Docs](https://gx4h8ezxcv.apidog.io/)
-
-## Installation
+### Installation
 
 ```bash
     # Install the required packages
@@ -180,7 +101,7 @@ create a migration/update repository with the following command:
 ### **Run the application:**
 
 ```bash
-    uv run task fr # update toml : [tool.taskipy.tasks] fr = "flask --app main run --port 5000 --reload --debug"
+uv run task fr # update toml : [tool.taskipy.tasks] fr = "flask --app main run --port 5000 --reload --debug"
 ```
 
 ### **API will be available at:**
