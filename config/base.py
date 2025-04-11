@@ -1,0 +1,3 @@
+# JWT Configuration
+SECRET_KEY = "f14aYNslhECSco11MgWChlmhn5YHxXhD"
+JWT_SECRET_KEY = "PJLJpEaW7eVbL3oDNF5p5L6M2KoPRhZf"

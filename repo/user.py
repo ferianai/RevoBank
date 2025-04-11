@@ -19,3 +19,20 @@ def create_user(username, email, password):
     db.session.add(new_user)
     db.session.commit()
     return new_user
+
+    """    ACCOUNTS {
+        INT id PK "Unique identifier"
+        INT user_id FK "User associated with the account"
+        VARCHAR account_type "Type of account"
+        VARCHAR account_number "Unique account number"
+        DECIMAL balance "Current balance of the account"
+        TEXT image_uri "Profile picture URI"
+        VARCHAR name "Account holder's name"
+        DATE birth_date "Account holder's date of birth"
+        VARCHAR address "Account holder's address"
+        VARCHAR gender "Account holder's gender"
+        VARCHAR phone "Account holder's phone number"
+        DATETIME created_at "Timestamp of account creation"
+        DATETIME updated_at "Timestamp of account information update"
+    }
+    """
