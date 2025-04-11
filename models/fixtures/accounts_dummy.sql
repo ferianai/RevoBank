@@ -22,3 +22,19 @@ VALUES
 -- Account untuk admin_user (user_id = 5)
 (5, 'ADMIN', 'ACC9998887776', 1000000.00, NULL, 'Admin User', '1980-01-01',
  'Admin HQ', 'Other', '089912345678', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+    -- id: int = db.Column(db.Integer, primary_key=True)
+    -- user_id: int = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    -- account_type: str = db.Column(db.String(100), nullable=False)  # Increased length
+    -- account_number: str = db.Column(
+    --     db.String(40), unique=True, nullable=False
+    -- )  # Increased length
+    -- balance: float = db.Column(db.Numeric(10, 2), default=0.00)
+    -- image_uri: str = db.Column(db.Text)
+    -- name: str = db.Column(db.String(100), nullable=False)
+    -- birth_date: datetime = db.Column(db.Date)
+    -- address: str = db.Column(db.String(255))
+    -- gender: str = db.Column(db.String(20))  # Increased length
+    -- phone: str = db.Column(db.String(300))  # Increased length
+    -- created_at: datetime = db.Column(db.DateTime, default=crono.now)
+    -- updated_at: datetime = db.Column(db.DateTime, default=crono.now, onupdate=crono.now)

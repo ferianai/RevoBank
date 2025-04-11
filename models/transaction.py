@@ -26,6 +26,12 @@ class Transaction(db.Model):
     description = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=crono.now)
 
+    from_account = db.relationship(
+        "Account", foreign_keys=[from_account_id], back_populates="transactions"
+    )
+    to_account = db.relationship(
+        "Account", foreign_keys=[to_account_id], back_populates="to_transactions"
+    )
     transaction_history = db.relationship(
         "TransactionHistory", backref="transaction", lazy=True
     )

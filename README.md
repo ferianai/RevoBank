@@ -76,6 +76,7 @@ erDiagram
 
 ```bash
     uv add flask-sqlalchemy flask-migrate psycopg2-binary
+    uv add pydantic # for pydantic validation in models
 ```
 
 - for local, production, development : postgresql
@@ -95,6 +96,18 @@ create a migration/update repository with the following command:
 
 ```bash
     docker compose up -d   # run docker
+```
+
+### **Run the application:**
+
+```bash
+uv run task fr # update toml : [tool.taskipy.tasks] fr = "flask --app main run --port 5000 --reload --debug"
+```
+
+### **API will be available at:**
+
+```
+http://127.0.0.1:5000
 ```
 
 - implement .env variables in a .env file

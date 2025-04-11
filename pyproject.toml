@@ -9,5 +9,9 @@ dependencies = [
     "flask-migrate>=4.1.0",
     "flask-sqlalchemy>=3.1.1",
     "psycopg2-binary>=2.9.10",
+    "pydantic>=2.11.3",
     "pytest>=8.3.5",
+    "taskipy>=1.14.1",
 ]
+[tool.taskipy.tasks]
+fr = "flask --app app run --port 8000 --reload --debug"
