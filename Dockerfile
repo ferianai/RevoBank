@@ -23,5 +23,5 @@ EXPOSE 5000
 # Install production server
 RUN pip install gunicorn
 
-# Run production server
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
+# Run production server (use PORT environment variable if available)
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 4 app:app"]
