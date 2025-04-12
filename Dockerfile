@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy dependency file
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies including gunicorn
+RUN pip install --no-cache-dir -r requirements.txt gunicorn
 
 # Copy source code
 COPY . .
@@ -17,11 +17,11 @@ COPY . .
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
+# Verify gunicorn installation
+RUN which gunicorn && gunicorn --version
+
 # Expose port
 EXPOSE 5000
-
-# Install production server
-RUN pip install gunicorn
 
 # Run production server (use PORT environment variable if available)
 CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 4 app:app"]
