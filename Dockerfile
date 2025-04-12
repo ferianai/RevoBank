@@ -1,20 +1,24 @@
-# Gunakan image resmi Python
+# Gunakan image Python ringan
 FROM python:3.11-slim
 
-# Set working directory
+# Working directory
 WORKDIR /app
 
-# Salin file requirements.txt ke dalam container
-COPY requirements.txt /app/
+# Copy dependency file
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Salin semua file dari project lokal ke dalam container
-COPY . /app/
+# Copy source code
+COPY . .
 
-# Expose port yang digunakan aplikasi Flask (default 5000)
+# Set environment variable Flask
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
+
+# Expose port
 EXPOSE 5000
 
-# Jalankan aplikasi Flask
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
+# Jalankan Flask
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
