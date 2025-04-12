@@ -1,6 +1,12 @@
 # RevoBANK [API Documentation](https://gx4h8ezxcv.apidog.io/)
 
-## Database Schema Overview
+## 🌐 Deployment
+
+- **Supabase Database**: [Supabase Project](https://supabase.com/dashboard/project/qbtzphhjikelvgeojvne/editor/18013)
+- **Hosted API on Koyeb**: [https://increasing-nanete-ananana-4c2642ac.koyeb.app/](https://increasing-nanete-ananana-4c2642ac.koyeb.app/)
+- **API Documentation (Apidog)**: [RevoBANK API Docs](https://gx4h8ezxcv.apidog.io/)
+
+## 📘 Database Schema Overview
 
 ### Entity Relationship Diagram
 
@@ -54,24 +60,11 @@ erDiagram
     TRANSACTIONS ||--o{ TRANSACTIONS_HISTORY : logs
 ```
 
-### Database Connection Configuration
+## 🔗 Database Connection Configuration
 
-The application supports multiple database backends:
+Supports SQLite (testing) and PostgreSQL (production).
 
-1. **SQLite (for testing):**
-
-   ```python
-   # config/testing.py
-   SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
-   ```
-
-2. **PostgreSQL (for development/production):**
-   ```python
-   # config/dev.py or config/prod.py
-   SQLALCHEMY_DATABASE_URI = 'postgresql://user:password@localhost:5432/revobank'
-   ```
-
-Environment variables should be set in `.env` file:
+`.env` file format:
 
 ```
 DB_HOST=localhost
@@ -81,9 +74,9 @@ DB_USER=user
 DB_PASSWORD=password
 ```
 
-### Example Database Operations
+## 🛠️ Example Database Operations
 
-**1. Creating a User:**
+**1. Create a User**
 
 ```python
 from models.user import User
@@ -98,12 +91,11 @@ db.session.add(new_user)
 db.session.commit()
 ```
 
-**2. Managing Accounts:**
+**2. Create and Manage Account**
 
 ```python
 from models.account import Account
 
-# Create account
 account = Account(
     user_id=1,
     account_type='savings',
@@ -112,19 +104,13 @@ account = Account(
 )
 db.session.add(account)
 db.session.commit()
-
-# Update balance
-account = Account.query.get(1)
-account.balance += 500.00
-db.session.commit()
 ```
 
-**3. Initiating Transactions:**
+**3. Initiate Transaction**
 
 ```python
 from models.transaction import Transaction
 
-# Transfer between accounts
 transaction = Transaction(
     from_account_id=1,
     to_account_id=2,
@@ -136,61 +122,59 @@ db.session.add(transaction)
 db.session.commit()
 ```
 
-### API Documentation
+## 🚀 Deployment Steps
 
-Full API documentation is available at: [RevoBANK API Docs](https://gx4h8ezxcv.apidog.io/)
+### Supabase
 
-## Installation
+1. Sign in to [Supabase](https://supabase.com/).
+2. Create a new project and note the DB credentials.
+3. Navigate to SQL Editor > paste your schema/migration SQL.
+4. Create a service role and copy the API key for backend integration.
+5. Set your `.env` with credentials.
 
-```bash
-    # Install the required packages
-    uv init
-    mv main.py app.py
-    uv add flask
-    uv add pytest
-    uv run pytest -s -v     # run test
+Example `.env`:
+
+```
+DB_HOST=db.abc.supabase.co
+DB_PORT=5432
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=yourpassword
 ```
 
-- for testing : sqlite
+### Koyeb Deployment
+
+1. Push your code to GitHub.
+2. Go to [Koyeb](https://www.koyeb.com/), login, and create a new app.
+3. Choose GitHub as the source and select your repo.
+4. Set build settings:
+   - Build command: `uv pip install -r requirements.txt`
+   - Run command: `uv run task fr`
+5. Set environment variables based on `.env`.
+6. Deploy and access from the generated Koyeb URL.
+
+## 🧪 Local Development
 
 ```bash
-    uv add flask-sqlalchemy flask-migrate psycopg2-binary
-    uv add pydantic # for pydantic validation in models
-```
-
-- for local, production, development : postgresql
-- model manager / table manager / ORM / migration : alembic / [lask-migrate](https://flask-migrate.readthedocs.io/en/latest/#)
-
-create a migration/update repository with the following command:
-
-```bash
-    $ uv run flask db init # create the migration repository
-    $ uv run flask db migrate -m "Initial migration" # create the first migration
-    $ uv run flask db upgrade # apply the migration
-    $ uv run flask db downgrade # revert the migration
-    $ uv run flask db --help # list available commands
-    $ uv run load_fixture.py # load dummy data
-    $ rm -rf migrations # remove the migration repository
+uv init
+uv add flask flask-sqlalchemy flask-migrate pydantic psycopg2-binary
+uv run pytest -s -v
 ```
 
 ```bash
-    docker compose up -d   # run docker
+uv run flask db init
+uv run flask db migrate -m "Initial migration"
+uv run flask db upgrade
 ```
 
-### **Run the application:**
+Run server:
 
 ```bash
-    uv run task fr # update toml : [tool.taskipy.tasks] fr = "flask --app main run --port 5000 --reload --debug"
+uv run task fr
 ```
 
-### **API will be available at:**
+## 🌍 Local API URL
 
 ```
 http://127.0.0.1:5000
 ```
-
-- implement .env variables in a .env file
-- konsep rollback and commit
-- implement pagination
-- Optimize Queries: Avoid N+1 queries, use eager loading in SQLAlchemy.
-- catat history perbankan (mutasi rekening)
