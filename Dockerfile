@@ -20,5 +20,8 @@ ENV FLASK_ENV=production
 # Expose port
 EXPOSE 5000
 
-# Jalankan Flask
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+# Install production server
+RUN pip install gunicorn
+
+# Run production server
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
