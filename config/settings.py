@@ -9,6 +9,7 @@ from route.user_routes import user_bp
 from route.account_routes import account_bp
 from route.transaction_routes import transaction_bp
 
+
 # Tambahkan global jwt
 jwt = JWTManager()  # ✅ Tambahkan ini di luar create_app
 
